@@ -21,6 +21,7 @@
 #include <fmt/color.h>
 #include <fmt/ostream.h>
 // #include <fmt/ranges.h>
+#include "hwinfo/hwinfo.h"
 
 using namespace std;
 using namespace std::chrono;
@@ -84,6 +85,11 @@ auto maxIndex(const Cont& c) {
 
 
 inline void printVersion() {
+  auto cpu = hwinfo::getAllCPUs()[0];
+  hwinfo::OS os;
+
+  print("{} on {}\n", os.name(), cpu.modelName());
+
 #ifdef __clang__
   print("clang v{} C++{}\n", __clang_version__, map<int, string>{{201703, "17"}, {201709, "20"}, {202002, "20"}}[__cplusplus]);
 #else  
